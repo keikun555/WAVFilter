@@ -37,11 +37,6 @@ class WAVFilter(object):
             self._stereo = True
             self._left = data[::2]
             self._right = data[1::2]
-
-        # init = self._amparray[0]
-        # for i in range(100):
-        #     print self._amparray[i] - init
-        # print type(init)
         self._filterSet = False
 
     def __del__(self):
@@ -100,10 +95,6 @@ class WAVFilter(object):
             output[1::2] = fright
         else:
             output = self._filter.send(self._mono)
-        # for (i, j) in zip(self._amparray, np.int16(data)):
-        #     print i, j
-        # data = self._filter.getOutput()
         out = wave.open(f, "w")
         out.setparams(self._fparams)
-        # print np.int16(np.array(data))
         out.writeframes((np.array(output).astype(self._tp)).tostring())
